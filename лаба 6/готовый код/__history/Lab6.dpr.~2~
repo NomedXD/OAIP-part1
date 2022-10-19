@@ -1,0 +1,103 @@
+Program Lab6;
+  { Every year, Teacher's Day is celebrated on the first
+    Sunday in October each year. A natural number is given,
+    denoting the number of the year. The program determines
+    the number of teachers this year. }
+
+{$APPTYPE CONSOLE} // Console application;
+
+// Modules declaration
+uses
+  System.SysUtils;
+
+// Declaration of types
+Type
+  CommonDays = 1 .. 31;
+  Months = (Январь, Февраль, Март, Апрель, Май, Июнь, Июль, Август, Сентябрь,
+    Октябрь, Ноябрь, Декабрь);
+  Week_Days_Type = (Воскресение, Понедельник, Вторник, Среда, Четверг,
+    Пятница, Суббота);
+  { CommonDays - indicates the number of the day. Type - type-range;
+    Months - contains all months of the year, numbering in this
+    type starts from 0. Type - enumerated type;
+    Week_Days_Type - contains all days of the week, numbering in this
+    type starts from 0. Type - enumerated type . }
+
+// Declaration of constants
+Const
+  MonthDays: array [1 .. 12] of byte = (31, 28, 31, 30, 31, 30, 31, 31, 30,
+    31, 30, 31);
+  { MonthDays - an array containing the number of all days in each month.
+    Starts from January. }
+
+// Variables declaration
+Var
+  Year, octoberfirstweekday: integer;
+  days, counter: integer;
+  teachersMonthIndex: integer;
+  teachersDay: CommonDays;
+  teachersMonth: Months;
+  counterMonths: Months;
+  teachersWeekDay: Week_Days_Type;
+  vvod: string;
+  error: integer;
+
+
+
+begin
+  repeat
+    write('Введите, пожалуйста, номер года(минимальное значение - 1): ');
+    readln(vvod);
+    val(vvod,Year,error);
+    if (error>0) or (Year<1) then
+    begin
+      Writeln('Вы ввелни неверные данные, потворите попытку');
+    end;
+
+  until (error=0) and (Year>=1);;
+
+  teachersMonth := Октябрь;
+  days := (Year - 1) * 365;
+
+  if teachersMonth = Октябрь then
+    teachersMonthIndex := 9;
+
+  // Adding days in months
+  for counterMonths := Январь to Months(teachersMonthIndex - 1) do
+  begin
+    inc(days, MonthDays[counter]);
+    inc(counter);
+  end;
+
+  counter := 1;
+  // Except not leap years
+  for counter := 1 to Year do
+    if (counter mod 4 = 0) and not((counter mod 100 = 0) and
+      (counter mod 400 <> 0)) then
+      inc(days);
+
+  // Adding days
+  inc(days);
+
+  octoberfirstweekday := days mod 7;
+  teachersDay := 1;
+  teachersWeekDay := Week_Days_Type(octoberfirstweekday);
+
+  while teachersWeekDay <> Воскресение do
+  begin
+    if teachersWeekDay = Суббота then
+    begin
+      teachersWeekDay := Week_Days_Type(0);
+      inc(teachersDay);
+    end
+    else
+    begin
+      teachersWeekDay := succ(teachersWeekDay);
+      inc(teachersDay);
+    end;
+
+  end;
+  writeln(teachersDay, ' октября ', Year, ' года');
+  readln;
+
+end.
