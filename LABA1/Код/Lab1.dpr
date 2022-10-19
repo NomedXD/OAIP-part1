@@ -1,0 +1,65 @@
+Program Lab1;
+{ The program calculates the value of the function
+for n = 10; 11 ... 15 and x = 0.6; 0.7 ... 1.1 with a step h = 0.1. }
+
+{$APPTYPE CONSOLE} // Console app
+
+// Modules declaration
+uses
+  System.SysUtils,
+  Windows;
+
+// Variables declaration
+var
+  f,x,Sum,Schet1,Schet2,Schet3,Schet4,hx: real;
+  k: integer;
+  { f - function  value;
+  x - function argument;
+  sum - the sum of a series of values for k;
+  Schet1, Schet2, Schet3, Schet4 - summands (parts) of the Sum;
+  hx - change value (step) for x;
+  k - number of cycle repetitions. }
+
+Begin
+  // Assignment x and hx to the original value
+  x:=0.6;
+  hx:=0.1;
+  // Cycle entry condition
+  while x<=1.1 do
+  begin
+    // Assignment Sum and k to the original value
+    Sum:=0;
+    k := 1;
+    // Find the sum and value of the function
+    // for the given n
+    while k<=15 do
+    begin
+      Schet1:= exp(((k+1)/k)*ln(x));
+      Schet2:= exp((k-2/3)/k);
+      Schet3:= exp(ln(Schet1+Schet2)/2);
+      Schet4:= 1+ln(x);
+      Sum:=Sum+ Schet3/Schet4;
+      if k>=10 then
+      begin
+        f:=Sum*exp(ln(abs(sin(pi*k/(x+3))))/3);
+        // Check if the argument of the
+        // logarithm is a negative number
+        if sin(pi*k/(x+3))<0 then
+        begin
+          { Print the values x, n, f (if there was a
+          negative number under the logarithm sign) }
+          f:=f*(-1);
+          Writeln ('x = ',x:0:2,'  n = ',k,'  f = ',f:0:6)
+        end
+        { Print the values x, n, f (if there was a
+        positive number under the logarithm sign) }
+        else Writeln ('x= ',x:0:2,'  n = ',k,'  f = ',f:0:6);
+      end;
+    k:=k+1;
+    end;
+  // Increment x
+  x:=x+hx;
+  Writeln;
+  end;
+  Readln;
+End.
