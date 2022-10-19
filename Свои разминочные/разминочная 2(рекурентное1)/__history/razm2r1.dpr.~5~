@@ -1,0 +1,68 @@
+Program razm2r1;
+
+{$APPTYPE CONSOLE}
+{$R *.res}
+
+uses
+  System.SysUtils;
+
+var
+  Kr0, Kr1, Z0, Z1, k, i, takt, errors: integer;
+  vvod:string;
+
+
+Begin
+  repeat
+    Writeln('Введите, пожалуйста, количество красных бактерий');
+    Readln(vvod);
+    val(vvod,Kr0,errors);
+    if (errors>0) or (Kr0<0) then
+    Writeln('Введены неверные данные');
+  until(errors=0) and (Kr0>0);
+
+  repeat
+    Writeln('Введите, пожалуйста, количество тактов');
+    Readln(vvod);
+    val(vvod,takt,errors);
+    if (errors>0) or (takt<0) then
+    Writeln('Введены неверные данные');
+  until(errors=0) and (takt>0);
+  Z0 := 0;
+  Kr1 := Kr0;
+  Z1 := Z0;
+  k := 0;
+
+  for i := 1 to takt do
+  begin
+    If (Z0 + Kr0) > 0 then
+    begin
+      Z1 := Z0 + Kr0;
+      Kr1 := Z0;
+      Kr0 := Kr1;
+      Z0 := Z1;
+    end
+    else
+      k := k + 1;
+  end;
+  i := takt;
+
+  if k = 0 then
+    Writeln('Просчитано тактов : ', i)
+  else
+  begin
+    Writeln('Выход за пределы integer');
+    Writeln('Просчитано тактов : ', i - k);
+  end;
+
+  Writeln('Всего красных бактерий : ', Kr1);
+  Writeln('Всего зеленых бактерий : ', Z1);
+
+  if k = 0 then
+    Writeln('Всего бактерий : ', Kr1 + Z1)
+  else
+    Writeln('Сумму посчитать невозможно, выход за пределы integer');
+
+  Readln;
+  Readln;
+
+End.

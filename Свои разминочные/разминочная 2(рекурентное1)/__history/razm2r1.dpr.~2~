@@ -1,0 +1,47 @@
+program razm2r1;
+
+{$APPTYPE CONSOLE}
+
+{$R *.res}
+
+uses
+  System.SysUtils;
+
+var
+  Kr0,Kr1,Kr2,Z0,Z1,Z2,Proverka1,i,takt:int64;
+  check1:boolean;
+
+
+begin
+  Writeln('Введите количество красных бактерий');
+  Readln(Kr0);
+  Writeln('Введите количество тактов');
+  Readln(takt);
+  Z0:=0;
+  if takt=0 then
+  begin
+    Writeln('Количество красных бактерий : ', Kr0);
+    Writeln('Количество зеленых бактерий : ', Z0);
+    Writeln('Всего бактерий : ', Kr0+Z0);
+  end
+  else
+  begin
+    for i := 1 to takt do
+      begin
+        Kr1:=Z0;
+        Z1:=Kr0+Z0;
+        Kr2:=Kr1;
+        Z2:=Z1;
+        Z0:=Z1;
+        Kr0:=Kr1;
+        Proverka1:=Kr2+Z2;
+      end;
+    Writeln('Просчитано тактов(с учетом нулевого) : ', i);
+    Writeln('Всего красных бактерий : ', Kr2);
+    Writeln('Всего зеленых бактерий : ', Z2);
+    Writeln('Всего бактерий : ', Kr2+Z2);
+  end;
+
+  readln;
+  readln;
+end.

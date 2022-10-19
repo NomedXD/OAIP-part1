@@ -1,0 +1,73 @@
+program Project1;
+
+{$APPTYPE CONSOLE}
+
+uses
+  System.SysUtils;
+
+var
+  NumV, NumPr, NumUch, mon, pir, i: integer;
+  Proverka1, Proverka2: string;
+  flag: boolean;
+
+begin
+  flag := true;
+  Writeln('Введите количество всех монахов');
+  Readln(Proverka1);
+  // checking for string input
+  if trystrtoint(Proverka1, mon) = false then
+  begin
+    Writeln('Ошибка, введено строковое значение или слишком большое число');
+    flag := false;
+  end
+  else
+  mon := strtoint(Proverka1);
+  Writeln('Введите количество всех пирогов');
+  Readln(Proverka2);
+
+  // checking for string input
+  if trystrtoint(Proverka2, pir) = false then
+  begin
+    Writeln('Ошибка, введено строковое значение или слишком большое значение');
+    flag := false;
+  end
+  else
+  pir := strtoint(Proverka2);
+
+  // checking for a negative number input
+  if (mon < 0) or (pir < 0) then
+  begin
+    Writeln('Ошибка, введено отрицательное значение');
+    flag := false;
+  end;
+
+  if flag then
+  begin
+    i := 0;
+    // iterate over the number of high monks
+    for NumV := 0 to (pir div 10) do
+    begin
+      // solution of the system of equations
+      NumPr := 2 * pir - mon - 19 * NumV;
+      // the number of simple monks must be whole and greater than 0
+      if ((NumPr mod 9 = 0) and (NumPr >= 0)) then
+      begin
+        // the number of monks disciples
+        NumUch := mon - (NumPr div 9) - NumV;
+        // the number of monks must be whole and greater than zero
+        if (NumUch >= 0) then
+        begin
+          // counting the number of options
+          i := i + 1;
+          Writeln('');
+          Writeln('Высших монахов - ', NumV);
+          Writeln('Простых монахов - ', NumPr);
+          Writeln('Монахов учеников - ', NumUch);
+        end;
+      end;
+    end;
+    Writeln('');
+    Writeln('Всего количество вариантов :', i);
+    Readln;
+  end;
+end.

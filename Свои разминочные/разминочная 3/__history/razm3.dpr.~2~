@@ -1,0 +1,79 @@
+Program razm3;
+
+{$APPTYPE CONSOLE}
+
+uses
+  System.SysUtils;
+
+const
+sumd = 11.5;
+sumk = 114.5;
+sumy = 1255;
+
+Var
+nd,nk,ny,k:integer;
+sum0:real;
+{ nd - количество дискет;
+  nk - количество коробок;
+  ny - количество ящиков;
+  sum0 - стоимость дискет по отдельности. }
+
+Begin
+  writeln('Введите количество дискет:');
+  readln(nd);
+  sum0:=nd*sumd;
+  ny:=nd div 144;
+  nd:=nd mod 144;
+  nk:=nd div 12;
+  nd:=nd mod 12;
+  if nd*sumd>=sumk then
+  begin
+    k:=nd;
+    writeln('');
+    Writeln('Невыгоднее всего покупать поштучно, сумма такой покупки :', floattostr(sum0));
+    nd:=0;
+    nk:=nk+1;
+    writeln('');
+    writeln('Выгоднее всего купить:');
+    writeln('Ящиков - ', ny);
+    writeln('Коробок - ', nk);
+    writeln('Дискет - ', nd);
+    writeln('Стоимость такой покупки составит: ', floattostr(nd*sumd+nk*sumk+ny*sumy));
+    Writeln('Будет сэкономлено: ' + floattostr(sum0-(nd*sumd+nk*sumk+ny*sumy)) + ' рублей');
+    Writeln('Лишних дискет будет куплено :', 12-k);
+    readln;
+  end
+  else
+  if nk*sumk>=sumy then
+  begin
+    k:=nd;
+    writeln('');
+    Writeln('Невыгоднее всего покупать поштучно, сумма такой покупки :', floattostr(sum0));
+    nd:=0;
+    nk:=0;
+    ny:=ny+1;
+    writeln('');
+    writeln('Выгоднее всего купить:');
+    writeln('Ящиков - ', ny);
+    writeln('Коробок - ', nk);
+    writeln('Дискет - ', nd);
+    writeln('Стоимость такой покупки составит: ' + floattostr(nd*sumd+nk*sumk+ny*sumy) + ' рублей');
+    Writeln('Будет сэкономлено: ' + floattostr(sum0-(nd*sumd+nk*sumk+ny*sumy)) + ' рублей');
+    Writeln('Лишних дискет будет куплено :', 12-k);
+    readln;
+  end
+  else
+  begin
+    writeln('');
+    Writeln('Невыгоднее всего покупать поштучно, сумма такой покупки :', floattostr(sum0));
+    writeln('');
+    writeln('Выгоднее всего купить:');
+    writeln('Ящиков - ', ny);
+    writeln('Коробок - ', nk);
+    writeln('Дискет - ', nd);
+    writeln('Стоимость такой покупки составит: ', floattostr(nd*sumd+nk*sumk+ny*sumy));
+    Writeln('Будет сэкономлено: ' + floattostr(sum0-(nd*sumd+nk*sumk+ny*sumy)) + ' рублей');
+    readln;
+  end;
+End.
+

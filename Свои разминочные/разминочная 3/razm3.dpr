@@ -1,0 +1,92 @@
+Program razm3;
+
+{$APPTYPE CONSOLE}
+
+uses
+  System.SysUtils;
+
+const
+  CostD = 11.5;
+  CostK = 114.5;
+  CostY = 1255;
+
+Var
+  Numd,Numk,Numy,k,m:int64;
+  sum0:real;
+  { Numd - количество дискет;
+  Numk - количество коробок;
+  Numy - количество ящиков;
+  sum0 - стоимость дискет по отдельности. }
+
+Begin
+  writeln('Введите количество дискет:');
+  readln(Numd);
+  // Поиск цены дискет при покупке по-отдельности
+  sum0:=Numd*CostD;
+  // Поиск возможного количества ящиков
+  Numy:=Numd div 144;
+  Numd:=Numd mod 144;
+  // Поиск возможного количества коробок
+  Numk:=Numd div 12;
+  Numd:=Numd mod 12;
+  k:=Numd;
+  // Проверка, выгоднее ли купить лишнюю коробку вместо дискет
+  if Numd*CostD>=CostK then
+  begin
+    // Сохранение остатка дискет, для поиска лишних купленных дискет
+    writeln('');
+    Writeln('Невыгоднее всего покупать поштучно, сумма такой покупки :', floattostr(sum0));
+    // Обнуление количества дискет
+    Numd:=0;
+    // Замена некоторого количества дискет коробкой
+    Numk:=Numk+1;
+    writeln('');
+    writeln('Выгоднее всего купить:');
+    writeln('Ящиков - ', Numy);
+    writeln('Коробок - ', Numk);
+    writeln('Дискет - ', Numd);
+    writeln('Стоимость такой покупки составит: ', floattostr(Numd*CostD+Numk*CostK+Numy*CostY));
+    Writeln('Будет сэкономлено по отношению к поштучной покупке: ' + floattostr(sum0-(Numd*CostD+Numk*CostK+Numy*CostY)) + ' рублей');
+    Writeln('Лишних дискет будет получено :', 12-k);
+    readln;
+  end
+  else
+  // Проверка, выгоднее ли купить лишщний ящик вместо коробок
+  if Numk*CostK>=CostY then
+  begin
+    // Сохранение остатка дискет и коробок, для поиска лишних купленных дискет
+    k:=Numd;
+    m:=Numk;
+    writeln('');
+    Writeln('Невыгоднее всего покупать поштучно, сумма такой покупки :', floattostr(sum0));
+    // Обнуление количества дискет и коробок
+    Numd:=0;
+    Numk:=0;
+    // Замена некоторого количества дискет и коробок ящиком
+    Numy:=Numy+1;
+    writeln('');
+    writeln('Выгоднее всего купить:');
+    writeln('Ящиков - ', Numy);
+    writeln('Коробок - ', Numk);
+    writeln('Дискет - ', Numd);
+    writeln('Стоимость такой покупки составит: ' + floattostr(Numd*CostD+Numk*CostK+Numy*CostY) + ' рублей');
+    Writeln('Будет сэкономлено по отношению к поштучной покупке: ' + floattostr(sum0-(Numd*CostD+Numk*CostK+Numy*CostY)) + ' рублей');
+    Writeln('Лишних дискет будет получено :', 144-m*12-k);
+    readln;
+  end
+  else
+  // Если нет вариантов более выгодной покупки
+  begin
+    writeln('');
+    Writeln('Невыгоднее всего покупать поштучно, сумма такой покупки :', floattostr(sum0));
+    writeln('');
+    writeln('Выгоднее всего купить:');
+    writeln('Ящиков - ', Numy);
+    writeln('Коробок - ', Numk);
+    writeln('Дискет - ', Numd);
+    writeln('Стоимость такой покупки составит: ', floattostr(Numd*CostD+Numk*CostK+Numy*CostY));
+    Writeln('Будет сэкономлено по отношению к поштучной покупке: ' + floattostr(sum0-(Numd*CostD+Numk*CostK+Numy*CostY)) + ' рублей');
+    readln;
+  end;
+End.
+

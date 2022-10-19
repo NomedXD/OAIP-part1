@@ -1,0 +1,125 @@
+Program lab8;
+   { The matrix is given. Arrange the elements of the matrix
+     columns in descending order,and the columns themselves
+     in ascending order of the elements of the first row. }
+
+{$APPTYPE CONSOLE} // Console application
+
+// Modules declaration
+Uses
+  System.SysUtils;
+
+// Variables declaration
+Var
+  st,str,st1,i,id,max,j,l,swap,error:integer;
+  X:array [1..7,1..9] of integer;
+  vvod: string;
+  sort:boolean;
+  { st - the number of input matrix columns;
+    str - number of input matrix rows;
+    st1 - column counter in a loop;
+    i - cycle counter;
+    id - numver of the max element;
+    max - contain max element while swaping;
+    j - cycle counter;
+    l - cycle counter;
+    swap - contain element while swaping;
+    error - check input errors;
+    X - array of integer( input matrix);
+    vvod - check input errors.
+    sort - checking for sortin ig buble sort }
+
+Begin
+  // Filling the array X
+  // Filling by line
+  for str := 1 to 7 do
+  begin
+    // Filling by column
+    for st := 1 to 9 do
+    repeat
+      begin
+        Writeln('Введите элемент ',str,' строки и ',st,' столбца');
+        Readln(vvod);
+        
+        // Checking for input
+        val(vvod,X[str,st],error);
+        if error>0 then
+        writeln('Вы неверно ввели член массива');
+        
+      end;
+    until error=0;
+  end;
+
+  // Printing array X
+  for i := 1 to 7 do
+  begin
+    for j := 1 to 9 do
+    write(X[i,j]:4,' ');
+    writeln;
+  end;
+  writeln;
+
+  // Ordering elements of matrix columns in descending order
+  // External loop by columns
+  for i := 1 to 9 do
+  begin
+    // Start of bubble sorting
+    sort:=true;
+    l:=1;
+    while (l<=6) and (sort=true) do
+    begin
+      // Resetting the variable
+      sort:=false;
+      // Internal exchange cycle
+      for j := 1 to 7-l do
+      begin
+        // Swaping elements if less
+        if X[j,i]<X[j+1,i] then
+        begin
+          // Found at least 1 exchange
+          sort:=true;
+          // Swaping
+          swap:= X[j,i];
+          X[j,i]:= X[j+1,i];
+          X[j+1,i]:= swap;
+        end;
+      end;
+      l:=l+1;
+    end;
+  end;
+ 
+  // Ordering columns in ascending order of the elements of the first row
+  // Sorting by choice
+  st1:=9;
+  // External loop by columns
+  while st1>1 do
+  begin
+    id:=1;
+    // Start sorting by selection
+    // Finding the index of the maximum element
+    for j := 2 to st1 do
+    if X[1,j]>X[1,id] then
+    begin
+      id:=j;
+    end;
+    // Exchange of elements
+    for i := 1 to 7 do
+    begin
+      // Swaping
+      max:=X[i,id];
+      X[i,id]:=X[i,st1];
+      X[i,st1]:=max;
+    end;
+    st1:=st1-1;
+  end;   
+
+  //  Printing new array X
+  for i := 1 to 7 do
+  begin
+    for j := 1 to 9 do
+    write(X[i,j]:4,' ');
+    writeln;
+  end;
+  readln;
+  readln;
+End.  

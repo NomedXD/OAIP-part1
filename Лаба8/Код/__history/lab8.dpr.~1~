@@ -1,0 +1,82 @@
+program lab8;
+
+{$APPTYPE CONSOLE}
+
+
+
+uses
+  System.SysUtils;
+
+var
+  st,str,st1,str1,i,id,max,maxI,j,l,swap,error:integer;
+  X:array [1..7,1..9] of integer;
+  vvod: string;
+
+begin
+  randomize;
+  for str := 1 to 7 do
+  begin
+    for st := 1 to 9 do
+    {repeat
+      begin
+        Writeln('Введите элемент ',str,' строки и ',st,' столбца');
+        Readln(vvod);
+        val(vvod,X[str,st],error);
+        if error>0 then
+        writeln('Вы неверно ввели член массива');
+      end;
+    until error=0; }
+    X[str,st]:=random(100);
+  end;
+
+  for i := 1 to 7 do
+  begin
+    for j := 1 to 9 do
+    write(X[i,j]:4,' ');
+    writeln;
+  end;
+  writeln;
+
+  for i := 1 to 9 do
+  begin
+    for l := 1 to 6 do
+    begin
+      for j := 1 to 7-l do
+      begin
+        if X[j,i]<X[j+1,i] then
+        begin
+          swap:= X[j,i];
+          X[j,i]:= X[j+1,i];
+          X[j+1,i]:= swap;
+        end;
+      end;
+    end;
+  end;
+
+  st1:=9;
+  while st1>1 do
+  begin
+    id:=1;
+    for j := 2 to st1 do
+    if X[1,j]>X[1,id] then
+    begin
+      id:=j;
+    end;
+    for i := 1 to 7 do
+    begin
+      max:=X[i,id];
+      X[i,id]:=X[i,st1];
+      X[i,st1]:=max;
+    end;
+    st1:=st1-1;
+  end;
+
+  for i := 1 to 7 do
+  begin
+    for j := 1 to 9 do
+    write(X[i,j]:4,' ');
+    writeln;
+  end;
+  readln;
+  readln;
+end.
