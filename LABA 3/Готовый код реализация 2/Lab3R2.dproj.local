@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.967,D:\Рабочий стол\учеба\ОАИП\LABA 3\Готовый код реализация 1\Lab3R1.dproj=D:\Рабочий стол\учеба\ОАИП\LABA 3\Код 1.1\Project2.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.629,D:\Рабочий стол\учеба\ОАИП\LABA 3\Готовый код реализация 2\Lab3R2.dproj=D:\Рабочий стол\учеба\ОАИП\LABA 3\Готовый код реализация 1\Lab3R1.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.053,D:\Рабочий стол\учеба\ОАИП\LABA 3\Код начальная версия\Project1.dproj=D:\ProjectsDelphi\Project1.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.950,D:\Рабочий стол\учеба\ОАИП\LABA 3\Код 1.1\Project2.dproj=D:\Рабочий стол\учеба\ОАИП\LABA 3\Код начальная версия\Project1.dproj</Transaction>
+  </Transactions>
+</BorlandProject>
