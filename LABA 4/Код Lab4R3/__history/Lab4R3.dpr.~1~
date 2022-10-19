@@ -1,0 +1,65 @@
+Program Lab4R3;
+  {The ptogram output the numbers that
+  are in each row of a two-dimensional array }
+
+{$APPTYPE CONSOLE} // Console application
+{$R *.res}
+
+// Modules declaration
+uses
+  System.SysUtils;
+
+// Cost declaration
+Const
+  N = 3;
+  Arr: array [1 .. N, 1 .. N] of integer = ((3,4,5),(4,6,43),(2,4,77));
+
+// Variables declaration
+Var
+  i, j, m, k: integer;
+  check: boolean;
+  { i,j,m - Array indexes, cycle counters;
+    k - check for coincidence in a number of numbers;
+    Arr - Initial array;
+    check - check for coincidence in a number of numbers. }
+
+Begin
+  // Printing array Arr
+  writeln;
+  writeln('Итоговый массив: ');
+  for i := 1 to N do
+  begin
+    for j := 1 to N do
+    begin
+      write(Arr[i, j], ' ');
+    end;
+    Writeln;
+  end;
+  // Searching for coincidence in a number of numbers
+  write('Повторяющиеся элементы: ');
+  for m := 1 to N do
+  begin
+    check := true;
+    for i := 2 to N do
+    begin
+      if check = true then
+      begin
+        k := 0;
+        j := 1;
+        while (Arr[1, m] >= Arr[i, j]) and (j <= N) do
+        begin
+          if Arr[1, m] = Arr[i, j] then
+            k := k + 1;
+          j := j + 1;
+        end;
+        // Checking for matches in a row
+        if k = 0 then
+        check := false;
+      end;
+    end;
+    if check = true then
+    write(Arr[1,m],' ');
+  end;
+  Readln;
+
+End.
